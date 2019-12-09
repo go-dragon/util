@@ -91,3 +91,21 @@ func StructToMap(obj interface{}) map[string]interface{} {
 	}
 	return data
 }
+
+func GetStructFields(obj interface{}) []string {
+	t := reflect.TypeOf(obj)
+	fields := make([]string, 0)
+	for i := 0; i < t.NumField(); i++ {
+		fields = append(fields, t.Field(i).Name)
+	}
+	return fields
+}
+
+func GetStructJsonTags(obj interface{}) []string {
+	t := reflect.TypeOf(obj)
+	fields := make([]string, 0)
+	for i := 0; i < t.NumField(); i++ {
+		fields = append(fields, t.Field(i).Tag.Get("json"))
+	}
+	return fields
+}

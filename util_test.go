@@ -1,7 +1,6 @@
 package util
 
 import (
-	"dragon/model"
 	"fmt"
 	"testing"
 )
@@ -53,23 +52,20 @@ func BenchmarkOnlyCols(b *testing.B) {
 	}
 }
 
-func TestStruct2Map(t *testing.T) {
-	device := model.TDevice{
-		DeviceId:       2,
-		DeviceName:     "",
-		DeviceType:     "",
-		DeviceToken:    "",
-		DeviceCode:     "",
-		DeviceInfo:     "",
-		DevicePosition: "",
-		Longitude:      0,
-		Latitude:       0,
-		StoreCode:      "",
-		ChannelInfo:    "",
-		DeviceOwnerId:  0,
-		DeviceStatus:   0,
-		CreateTime:     "",
-		UpdateTime:     "",
-	}
-	fmt.Println(StructJsonTagToMap(device))
+func TestGetStructFields(t *testing.T) {
+	var s = struct {
+		DeviceName string `json:"device_name"`
+		UserName   string `json:"user_name"`
+	}{}
+	fields := GetStructFields(s)
+	fmt.Println(fields)
+}
+
+func TestGetStructJsonTags(t *testing.T) {
+	var s = struct {
+		DeviceName string `json:"device_name"`
+		UserName   string `json:"user_name"`
+	}{}
+	tags := GetStructJsonTags(s)
+	fmt.Println(tags)
 }
