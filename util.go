@@ -60,9 +60,9 @@ func ToJsonString(data interface{}) string {
 }
 
 // slice and trim white space
-func SliceAndTrim(str string) []string {
+func SliceAndTrim(str string, sep string) []string {
 	res := make([]string, 0)
-	strs := strings.Split(str, ",")
+	strs := strings.Split(str, sep)
 	for _, s := range strs {
 		res = append(res, strings.Trim(s, " "))
 	}
