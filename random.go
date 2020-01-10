@@ -1,6 +1,8 @@
 package util
 
 import (
+	trueRand "crypto/rand"
+	"math/big"
 	"math/rand"
 	"time"
 )
@@ -21,7 +23,7 @@ func checkSeed() {
 	}
 }
 
-// generate random string
+// generate random string with pseudo-random,maybe 0 begin
 func RandomStr(length int) string {
 	checkSeed()
 	runes := make([]rune, length)
@@ -32,15 +34,38 @@ func RandomStr(length int) string {
 	return string(runes)
 }
 
-// generate random number string
-func RandomNumberStr(length int) string {
+// generate random number string, maybe 0 begin with pseudo-random
+func RandomNumber(length int) string {
 	checkSeed()
 	runes := make([]rune, length)
 	numbersLen := len(numbers)
-	// 初始化第一个rune
-	runes[0] = numbers[1+rand.Intn(numbersLen-1)]
-	for i := 1; i < length; i++ {
+	for i := 0; i < length; i++ {
 		runes[i] = numbers[rand.Intn(numbersLen)]
+	}
+	return string(runes)
+}
+
+// generate random string with true random,maybe 0 begin
+func TrueRandomStr(length int) string {
+	runes := make([]rune, length)
+	lettersLen := len(letters)
+	// use crypto/rand,for real random
+	for i := 0; i < length; i++ {
+		n, _ := trueRand.Int(trueRand.Reader, big.NewInt(int64(lettersLen)))
+		runes[i] = letters[int(n.Int64())]
+	}
+	return string(runes)
+}
+
+// generate random number string, maybe 0 begin with true random
+func TrueRandomNumber(length int) string {
+	runes := make([]rune, length)
+	numbersLen := len(numbers)
+	// 初始化第一个rune
+	for i := 0; i < length; i++ {
+		// use crypto/rand,for real random
+		n, _ := trueRand.Int(trueRand.Reader, big.NewInt(int64(numbersLen)))
+		runes[i] = numbers[int(n.Int64())]
 	}
 	return string(runes)
 }

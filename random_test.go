@@ -2,7 +2,6 @@ package util
 
 import (
 	"fmt"
-	"log"
 	"testing"
 )
 
@@ -17,20 +16,35 @@ func BenchmarkRandomStr(b *testing.B) {
 	}
 }
 
-func TestRandomNumberStr(t *testing.T) {
-	for i := 0; i < 10000000; i++ {
-		numberStr := RandomNumberStr(6)
-		if numberStr[0] == '0'  {
-			log.Fatal("first letter cannot be `0`")
-		}
-	}
-	fmt.Println(RandomNumberStr(6))
+func TestRandomNumber(t *testing.T) {
+	fmt.Println(RandomNumber(6))
 }
 
+// benchmark randomStr
+func BenchmarkRandomNumber(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		RandomNumber(16)
+	}
+}
+
+func TestTrueRandomStr(t *testing.T) {
+	fmt.Println(TrueRandomStr(6))
+}
 
 // benchmark randomStr
-func BenchmarkRandomNumberStr(b *testing.B) {
+func BenchmarkTrueRandomStr(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		RandomNumberStr(16)
+		TrueRandomStr(16)
+	}
+}
+
+func TestTrueRandomNumber(t *testing.T) {
+	fmt.Println(TrueRandomNumber(6))
+}
+
+// benchmark randomStr
+func BenchmarkTrueRandomNumber(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		TrueRandomNumber(16)
 	}
 }
