@@ -5,10 +5,13 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
-	"encoding/json"
+	jsoniter "github.com/json-iterator/go"
 	"reflect"
 	"strings"
 )
+
+// FastJson
+var FastJson = jsoniter.ConfigCompatibleWithStandardLibrary
 
 //过滤字段，map中只保留需要的键值对
 func OnlyCols(cols []string, data map[string]string) {
@@ -55,7 +58,7 @@ func HmacMD5(input, key string) string {
 
 // return json string
 func ToJsonString(data interface{}) string {
-	j, _ := json.Marshal(data)
+	j, _ := FastJson.Marshal(data)
 	return string(j)
 }
 
