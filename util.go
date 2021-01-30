@@ -112,3 +112,21 @@ func GetStructJsonTags(obj interface{}) []string {
 	}
 	return fields
 }
+
+// convert map[string]string to map[string]interface{}
+func MapStringToInterface(data map[string]string) map[string]interface{} {
+	ret := make(map[string]interface{})
+	for k, v := range data {
+		ret[k] = v
+	}
+	return ret
+}
+
+// convert map[string]interface{} to map[string]string
+func MapInterfaceToString(data map[string]interface{}) map[string]string {
+	ret := make(map[string]string)
+	for k, v := range data {
+		ret[k] = v.(string)
+	}
+	return ret
+}

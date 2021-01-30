@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -68,4 +69,48 @@ func TestGetStructJsonTags(t *testing.T) {
 	}{}
 	tags := GetStructJsonTags(s)
 	fmt.Println(tags)
+}
+
+func TestMapStringToInterface(t *testing.T) {
+	type args struct {
+		data map[string]string
+	}
+	tests := []struct {
+		name string
+		args args
+		want map[string]interface{}
+	}{
+		// TODO: Add test cases.
+		{name: "t1", args: args{data: map[string]string{"age": "18", "username": "gg"}}, want: map[string]interface{}{"age": "18", "username": "gg"}},
+		{name: "t2", args: args{data: map[string]string{"data": "flsow", "klo": "ppy"}}, want: map[string]interface{}{"data": "flsow", "klo": "ppy"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MapStringToInterface(tt.args.data); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MapStringToInterface() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMapInterfaceToString(t *testing.T) {
+	type args struct {
+		data map[string]interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want map[string]string
+	}{
+		// TODO: Add test cases.
+		{name: "t1", args: args{data: map[string]interface{}{"age": "18", "username": "gg"}}, want: map[string]string{"age": "18", "username": "gg"}},
+		{name: "t2", args: args{data: map[string]interface{}{"data": "flsow", "klo": "ppy"}}, want: map[string]string{"data": "flsow", "klo": "ppy"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MapInterfaceToString(tt.args.data); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MapInterfaceToString() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
