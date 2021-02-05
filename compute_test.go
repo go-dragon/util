@@ -18,7 +18,7 @@ func TestTwoDecimalPlaces(t *testing.T) {
 		{name: "t1", args: args{value: 3.35333}, want: 3.35},
 		{name: "t2", args: args{value: 3.5588}, want: 3.55},
 		{name: "t2", args: args{value: 3.5558}, want: 3.55},
-		{name: "t2", args: args{value: 3.5468}, want: 3.54},
+		{name: "t2", args: args{value: 19.9}, want: 19.9},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
